@@ -1,0 +1,5 @@
+print out the latitude and longitude of the ISS at the current time using a loop
+
+Also print out the current time.
+
+http://api.open-notify.org/iss-now.json

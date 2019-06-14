@@ -1,0 +1,29 @@
+---
+- name: print out lat and long of the ISS at the current time
+  hosts: localhost
+
+  gather_facts: false
+
+  vars:
+    gps: "{{ lookup('url', 'http://api.open-notify.org/iss-now.json') }}"
+
+  ## Tags are easy! ansible-playbook example.yml --tags "keytime,astros" # would run everything
+  ## ansible-playbook example.yml --tags "astros" # would NOT run the task named 'Key prep'
+  tasks:
+   - name: ISS location
+     debug: '{{ item }}'
+     lopp: 
+     - "{{ gps.iss_position.latitide }}"
+     - "{{ gps.iss_position.longitude }}"
+     - "{{ ansible_date_time }}"
+
+
+
+#       msg: "ISS location: {{ iss.iss_position.latitude, iss.iss_position.longitude}}"
+#     loop: "{{ iss}}"
+
+       #   - name: Clean up that ISS data
+       #     de#bug:
+       #      msg: "Let me format that with a loop: {{ item }}"
+       #    loop: "{{ iss.iss_position|map(attribute='name')|list }}"
+
